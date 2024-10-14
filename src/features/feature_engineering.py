@@ -36,7 +36,7 @@ def create_preprocessor(numerical_columns, categorical_columns, ordinal_columns,
         ('numerical_pipeline', numerical_pipeline, numerical_columns),
         ('categorical_pipeline', categorical_pipeline, categorical_columns),
         ('ordinal_pipeline', ordinal_pipeline, ordinal_columns)
-    ])
+    ],)
     
     return preprocessor
 
@@ -74,10 +74,21 @@ def main():
         numerical_columns=['Delivery_person_Age','Delivery_person_Ratings','Vehicle_condition','multiple_deliveries',
                                 'TimeOrder_Hour','distance']
 
+        # separting the target column
+        target_col_train = train_data['Time_taken (min)']
+        target_col_test = test_data['Time_taken (min)']
+
+        train_data.drop(['Time_taken (min)'], axis=1, inplace=True)
+        train_data.drop(['Time_taken (min)'], axis=1, inplace=True)
+
         preprocessor = create_preprocessor(numerical_columns, categorical_columns, ordinal_columns, ordinal_categories)
 
         train_data_transformed, test_data_transformed = transform_data(preprocessor, train_data, test_data, numerical_columns,categorical_columns,
         ordinal_columns, ordinal_categories)
+
+        # concating the target column 
+        train_data_transformed = pd.concat([train_data_transformed, target_col_train], axis=1)
+        test_data_transformed = pd.concat([test_data_transformed, target_col_test], axis=1)
 
         # Store the data inside data/interim
         data_path = os.path.join("./data", "interim")
