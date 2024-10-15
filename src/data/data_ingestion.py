@@ -2,10 +2,13 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 import os
+import yaml
+
+test_size = yaml.safe_load(open('params.yaml','r'))['data_ingestion']['test_size']
 
 df=pd.read_csv('https://raw.githubusercontent.com/Shivan118/New-Machine-Learning-Modular-Coding-projecs/refs/heads/main/Data/finalTrain.csv')
 
-train_data, test_data = train_test_split(df, test_size = 0.20, random_state= 42)
+train_data, test_data = train_test_split(df, test_size = test_size, random_state= 42)
 
 df.drop('ID',axis=1,inplace=True)
 
