@@ -64,6 +64,13 @@ def main():
         # Fetch the data from data/raw
         train_data = pd.read_csv('./data/processed/train_processed.csv')
         test_data = pd.read_csv('./data/processed/test_processed.csv')
+        
+        # separting the target column
+        target_col_train = train_data['Time_taken (min)']
+        target_col_test = test_data['Time_taken (min)']
+
+        train_data.drop(['Time_taken (min)'], axis=1, inplace=True)
+        test_data.drop(['Time_taken (min)'], axis=1, inplace=True)
 
         Road_traffic_density=['Low','Medium','High','Jam']
         Weather_conditions=['Sunny','Cloudy','Windy','Fog','Sandstorms','Stormy']
@@ -73,13 +80,6 @@ def main():
         ordinal_categories = [Road_traffic_density, Weather_conditions]
         numerical_columns=['Delivery_person_Age','Delivery_person_Ratings','Vehicle_condition','multiple_deliveries',
                                 'TimeOrder_Hour','distance']
-
-        # separting the target column
-        target_col_train = train_data['Time_taken (min)']
-        target_col_test = test_data['Time_taken (min)']
-
-        train_data.drop(['Time_taken (min)'], axis=1, inplace=True)
-        train_data.drop(['Time_taken (min)'], axis=1, inplace=True)
 
         preprocessor = create_preprocessor(numerical_columns, categorical_columns, ordinal_columns, ordinal_categories)
 
