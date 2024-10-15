@@ -66,3 +66,20 @@ stages:
       hash: md5
       md5: c387ce48054afbf61d20e8ac0728ac31
       size: 210840463
+  model_evaluation:
+    cmd: python src/models/model_evaluation.py
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: 6b2a083ff669c8006d5a2340a91fd021.dir
+      size: 12903979
+      nfiles: 2
+    - path: src/models/model_evaluation.py
+      hash: md5
+      md5: 871878a6ecbdc3e30ed567e95a293120
+      size: 1314
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: b05fba2199a26e0989f933eb03c49f4b
+      size: 171
